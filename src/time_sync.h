@@ -1,0 +1,1 @@
+bool syncTime(int buzzer, int internalLed, RTC_DS3231 rtc);

@@ -1,0 +1,1 @@
+DateTime getNextAlarmDate(RTC_DS3231* rtc, DateTime alarmTime);

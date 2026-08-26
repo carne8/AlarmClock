@@ -1,0 +1,1 @@
+bool connect_wifi(int buzzer, int internalLed, unsigned long timeout);

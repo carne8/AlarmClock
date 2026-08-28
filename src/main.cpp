@@ -37,6 +37,7 @@ void main_loop(void* _);
 void music_loop(void* _);
 
 void IRAM_ATTR onAlarm() {
+  state = WAITING;
   int musicIdx = random(0, music_count());
   start_playing(musicIdx);
 }
@@ -133,7 +134,12 @@ void setup() {
 
   // Handle potential gpio wakeup source
   int gpio_reason = log(esp_sleep_get_ext1_wakeup_status())/log(2);
-  if (gpio_reason == timeSyncButton) onTimeSyncRequested();
+  if (gpio_reason == timeSyncButton) {
+    if (digitalRead(stopAlarmButton) == LOW)
+      onAlarm();
+    else
+      onTimeSyncRequested();
+  }
 
   xTaskCreatePinnedToCore(
     main_loop, // Function to implement the task
